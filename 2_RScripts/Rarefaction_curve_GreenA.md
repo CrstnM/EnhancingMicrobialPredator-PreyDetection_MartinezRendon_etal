@@ -2,9 +2,10 @@
 
 
 Cristina Martínez Rendón
+
 17.10.2023
 
-**R version:** 4.3.0 (2023-04-21)
+**R version:** 4.3.0 (21.04.2023)
 
 **Packages**
 
@@ -20,7 +21,7 @@ library(vegan)
 rm(list=ls())
 
 setwd("~/R_Projects/ArcticAntarctica/GreenAlgae")
-``` r
+``` 
 
 ## 1. Data handling
 
@@ -39,33 +40,33 @@ counts <- as_tibble(counts, rownames = "names") %>%
 counts <- as.data.frame(counts)
 rownames(counts) <- counts$names_site
 counts <- counts[,-1]
-``` r
+``` 
 
 ### Calculate rarefaction curves
 ``` r
 rarecurves <- rarecurve(counts, step = 50)
 rarecurves_GreenAlgae <- rarecurve(counts, step = 50, xlab = "Sample Size", ylab = "Species", label = FALSE) # Base R rarecurve.
-``` r
+``` 
 
 ### This line already creates the data frame usable for ggplot.
 ``` r
 rare_counts <- rarecurve(counts, step = 50, tidy=TRUE)
-``` r
+``` 
 
 ### Load metadata
 ``` r
 metadata <- read.delim("SampleMetadata.txt", header = TRUE, row.names = 1)
-``` r
+``` 
 
 ### Combine rarefaction data and metadata to one data frame to color-code by WWTP compartment 
 For by.y choose the column with your sample IDs, if by.y=0 rownames are used
 ``` r
 rarefaction_data <- merge(rarefaction_data, metadata, by.x="SampleID", by.y = 0, all = T)
 rare_counts <- merge(rare_counts, metadata, by.x="Site", by.y = 0, all = T)
-``` r
+``` 
 
 ## 2. Plot
-
+``` r
 color <- c("#FFE4B5", "#225895", "#89aec2")
 
 Rare_GreenAlgae <- ggplot(rare_counts, aes(x = Sample, y = Species, group = Site, color = set)) +
@@ -90,3 +91,4 @@ Rare_GreenAlgae <- ggplot(rare_counts, aes(x = Sample, y = Species, group = Site
   theme(plot.margin = margin(1,1,1,1, "cm"))
 
 ggsave(file = "Plots/Rarefaction_GreenAlgae.png", dpi=300, width = 8, height = 5)
+```
