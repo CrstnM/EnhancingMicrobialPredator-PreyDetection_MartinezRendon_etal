@@ -4,8 +4,6 @@
 Cristina Martínez Rendón
 17.10.2023
 
-rm(list=ls())
-
 **R version:** 4.3.0 (2023-04-21)
 
 **Packages**
@@ -18,10 +16,15 @@ if (!require("vegan")) install.packages("vegan")
 library(tidyverse)
 library(ggthemes) 
 library(vegan)
-``` r
+
+rm(list=ls())
 
 setwd("~/R_Projects/ArcticAntarctica/GreenAlgae")
+``` r
 
+## 1. Data handling
+
+``` r
 counts <- read.delim("305WP2PolarGA.unique.agc.txt", header=T,row.names = 1)
 counts <- counts[,-which(colnames(counts) %in% c("SUM","repSeqName","repSeq","OTUConTaxonomy", "mock_community"))]
 counts <- as.data.frame(t(counts))
@@ -36,38 +39,43 @@ counts <- as_tibble(counts, rownames = "names") %>%
 counts <- as.data.frame(counts)
 rownames(counts) <- counts$names_site
 counts <- counts[,-1]
+``` r
 
+### Calculate rarefaction curves
+``` r
+rarecurves <- rarecurve(counts, step = 50)
+rarecurves_GreenAlgae <- rarecurve(counts, step = 50, xlab = "Sample Size", ylab = "Species", label = FALSE) # Base R rarecurve.
+``` r
 
-# Calculate rarefaction curves
-# rarecurves <- rarecurve(counts, step = 50)
-rarecurves_Cerco <- rarecurve(counts, step = 50, xlab = "Sample Size", ylab = "Species", label = FALSE) # Base R rarecurve.
-
-# This line already creates the data frame usable for ggplot.
+### This line already creates the data frame usable for ggplot.
+``` r
 rare_counts <- rarecurve(counts, step = 50, tidy=TRUE)
+``` r
 
-# Load metadata
+### Load metadata
+``` r
 metadata <- read.delim("SampleMetadata.txt", header = TRUE, row.names = 1)
+``` r
 
-# Combine rarefaction data and metadata to one data frame to color-code by WWTP compartment 
-# For by.y choose the column with your sample IDs, if by.y=0 rownames are used
-# rarefaction_data <- merge(rarefaction_data, metadata, by.x="SampleID", by.y = 0, all = T)
+### Combine rarefaction data and metadata to one data frame to color-code by WWTP compartment 
+For by.y choose the column with your sample IDs, if by.y=0 rownames are used
+``` r
+rarefaction_data <- merge(rarefaction_data, metadata, by.x="SampleID", by.y = 0, all = T)
 rare_counts <- merge(rare_counts, metadata, by.x="Site", by.y = 0, all = T)
+``` r
 
-
+## 2. Plot
 
 color <- c("#FFE4B5", "#225895", "#89aec2")
 
-# Plot
-  ggplot(rare_counts, aes(x = Sample, y = Species, group = Site, color = set)) +
+Rare_GreenAlgae <- ggplot(rare_counts, aes(x = Sample, y = Species, group = Site, color = set)) +
   geom_line(size = 0.8) +
-  # scale_color_manual(values = c(polar_colors)) +
   scale_color_manual(name = "Sampling sites",
                        values = c("#FFE4B5", "#225895", "#89aec2"),
                        breaks = c("Arctic", "An_Cont", "An_Pen")) +
   # Set plot title, x-axis label & y-axis label 
   labs(title = "Rarefaction curves per samplig sites, Green Algae", x = "Number of reads", y = "Number of OTUs") +
   # Change background of plot 
-  # geom_vline(xintercept = 4800, color="gray40", size=1) +
   theme_minimal() +
   theme(axis.text=element_text(size=10), 
         axis.title=element_text(size=12, face = "bold"), 
