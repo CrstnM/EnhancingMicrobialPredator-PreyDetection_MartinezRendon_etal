@@ -10,11 +10,11 @@ It should be noted that some of the figure parameters may vary somewhat after re
 
 Sequence processing
 ----------
-We produced independent metabarcoding datasets of a predator group (Cercozoa) and their respective, putative prey in polar biocrusts (here green algae and ochrophytes). First, after generating the OTU tables, we [rarefied](2_Data/) the data to check for saturation, which was achieved for the three datasets. Downstream analyses were then conducted with the non-rarefied datasets.
+We produced independent metabarcoding datasets of a predator group (Cercozoa) and their respective, putative prey in polar biocrusts (here green algae and ochrophytes). First, after generating the OTU tables, we [rarefied](2_RScripts/Rarefaction_curve_GreenAlgae.md) the data to check for saturation, which was achieved for the three datasets. Downstream analyses were then conducted with the non-rarefied datasets.
 
 Diversity measures
 ----------
-Community composition was visualized through [chord plots](2_Data/Chord_diagram_GreenAlgae) and [Venn diagrams](2_Data/Venn_diagram_GreenAlgae). [Alpha](2_Data/) and [beta diversity](2_Data/) metrics were as well visualized and statistically tested. 
+Community composition was visualized through [chord plots](2_RScripts/Chord_diagram_GreenAlgae.md) and [Venn diagrams](2_RScripts/Venn_diagram_GreenAlgae.md). [Alpha](2_RScripts/) and [beta diversity](2_RScripts/) metrics were as well visualized and statistically tested. 
 
 Cross-kingdom co-occurrence network inference
 ----------

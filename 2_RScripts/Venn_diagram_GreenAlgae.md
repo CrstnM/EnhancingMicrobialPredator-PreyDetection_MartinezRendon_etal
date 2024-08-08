@@ -1,7 +1,7 @@
 # Venn diagram
 
 
-Cristina Martínez Rendón
+Cristina Martínez Rendón 
 13-06-2023
 
 **R version:** 4.3.0 (21-04-2023)
@@ -83,7 +83,7 @@ info <- as_tibble(info) %>%
   counttablent <- relcounttable
 ``` 
 
-# Subset for the three regions:
+### Subset for the three regions:
 ``` r
 Arctic_sub <- counttablent %>% 
   filter(set=="Arctic") %>% 
@@ -153,7 +153,7 @@ ggsave(file = "Plots/Venn_GreenAlgae.png", dpi=300, width = 5, height = 5)
 ``` 
 ### Venn plots for the three most abundant classes
 
-# Trebouxiophyceae
+#### Trebouxiophyceae
 ``` r
 Trebouxiophyceae_venn <- list(
   Arctic = row.names(Arctic_sub)[Arctic_sub$Class == "Trebouxiophyceae" & Arctic_sub$Arctic == TRUE],
@@ -171,7 +171,7 @@ ggvenn(Trebouxiophyceae_venn,
 ggsave(file = "Plots/Venn_Trebouxiophyceae.png", dpi=300, width = 5, height = 5)
 ``` 
 
-# Chlorophyceae
+#### Chlorophyceae
 ``` r
 Chlorophyceae_venn <- list(
   Arctic = row.names(Arctic_sub)[Arctic_sub$Class == "Chlorophyceae" & Arctic_sub$Arctic == TRUE],
@@ -189,7 +189,7 @@ ggvenn(Chlorophyceae_venn,
 ggsave(file = "Plots/Venn_Chlorophyceae.png", dpi=300, width = 5, height = 5)
 ``` 
 
-# Ulvophyceae
+#### Ulvophyceae
 ``` r
 Ulvophyceae_venn <- list(
   Arctic = row.names(Arctic_sub)[Arctic_sub$Class == "Ulvophyceae" & Arctic_sub$Arctic == TRUE],
@@ -207,11 +207,11 @@ ggvenn(Ulvophyceae_venn,
 ggsave(file = "Plots/Venn_Ulvophyceae.png", dpi=300, width = 5, height = 5)
 ```
 
-![Venn diagram: Green algae](4_Figures/Venn_GreenAlgae.png)
-![Venn diagram: Chlorophyceae](4_Figures/Venn_Chlorophyceae.png)
-![Venn diagram: Trebouxiophyceae](4_Figures/Venn_Trebouxiophyceae.png)
-![Venn diagram: Ulvophyceae](4_Figures/Venn_Ulvophyceae.png)
+![Venn diagram: Green algae](../4_Figures/Venn_GreenAlgae.png) 
+![Venn diagram: Chlorophyceae](../4_Figures/Venn_Chlorophyceae.png) 
+![Venn diagram: Trebouxiophyceae](../4_Figures/Venn_Trebouxiophyceae.png) 
+![Venn diagram: Ulvophyceae](../4_Figures/Venn_Ulvophyceae.png) 
 
-Not entirely satisfied with the outcome, I chose to use the data I generated here to create a Venn diagram, with the areas approximately representing OTU abundances, using [*eulerr*](https://eulerr.co/).
-[Venn diagram using eulerr: Green algae](4_Figures/GreenAlgae_euler)
+Not entirely satisfied with the outcome, I chose to use the data I generated here to create a Venn diagram, with the areas approximately representing OTU abundances, using [*eulerr*](https://eulerr.co/). 
+[Venn diagram using eulerr: Green algae](../4_Figures/GreenAlgae_euler.png)
 

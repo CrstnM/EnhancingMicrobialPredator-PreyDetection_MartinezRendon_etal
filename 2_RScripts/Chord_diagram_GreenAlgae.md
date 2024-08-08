@@ -1,7 +1,7 @@
 # Chord diagram - Circular visualization in R
 
 
-Cristina Martínez Rendón
+Cristina Martínez Rendón 
 14-06-2023
 
 **R version:** 4.3.0 (21-04-2023)
@@ -288,7 +288,7 @@ dev.off()
 circos.clear()
 ``` 
 
-![Chord diagram of green algae in three polar regions](4_Figures/Chord_GreenAlgae.png)
+![Chord diagram of green algae in three polar regions](../4_Figures/Chord_GreenAlgae.png)
 
 
 

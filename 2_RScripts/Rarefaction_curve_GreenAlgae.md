@@ -1,7 +1,7 @@
 # Rarefaction curves for each sample
 
 
-Cristina Martínez Rendón
+Cristina Martínez Rendón 
 17-10-2023
 
 **R version:** 4.3.0 (21-04-2023)
@@ -90,5 +90,5 @@ Rare_GreenAlgae <- ggplot(rare_counts, aes(x = Sample, y = Species, group = Site
 
 ggsave(file = "Plots/Rarefaction_GreenAlgae.png", dpi=300, width = 8, height = 5)
 ```
-![Rarefaction curve of green algae in the three polar regions](4_Figures/Rarefaction_GreenAlgae.png)
+![Rarefaction curve of green algae in the three polar regions](../4_Figures/Rarefaction_GreenAlgae.png)
 
