@@ -1,7 +1,7 @@
 # Venn diagram
 
 
-Cristina Martínez Rendón 
+Cristina Martínez Rendón  
 13-06-2023
 
 **R version:** 4.3.0 (21-04-2023)
@@ -213,5 +213,5 @@ ggsave(file = "Plots/Venn_Ulvophyceae.png", dpi=300, width = 5, height = 5)
 ![Venn diagram: Ulvophyceae](../4_Figures/Venn_Ulvophyceae.png) 
 
 Not entirely satisfied with the outcome, I chose to use the data I generated here to create a Venn diagram, with the areas approximately representing OTU abundances, using [*eulerr*](https://eulerr.co/). 
-[Venn diagram using eulerr: Green algae](../4_Figures/GreenAlgae_euler.png)
+![Venn diagram using eulerr: Green algae](../4_Figures/GreenAlgae_euler.png)
 

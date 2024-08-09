@@ -1,7 +1,7 @@
 # Rarefaction curves for each sample
 
 
-Cristina Martínez Rendón 
+Cristina Martínez Rendón  
 17-10-2023
 
 **R version:** 4.3.0 (21-04-2023)

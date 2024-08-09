@@ -5,14 +5,13 @@
 
 
 ### Chord diagrams, as representations of presence/absence of genera in three geographical locations. Metabarcoding data.
-### In the first 209 lines I process the data. You can download the "GreenA_chord.csv" file and jump directly to making the chord diagram 
-  # and see how the chordDiagram() function works. Some steps might be redundant in those first lines.
+### In the first 209 lines I process the data. You can download the "GreenA_chord.csv" file and jump directly to making the chord diagram and see how the chordDiagram() function works. Some steps might be redundant in those first lines.
 
-
-rm(list = ls())
 
 library(tidyverse)
 library(circlize)
+
+rm(list = ls())
 
 setwd("~/R_Projects/ArcticAntarctica/GreenAlgae") # Location of this R script. s
 
