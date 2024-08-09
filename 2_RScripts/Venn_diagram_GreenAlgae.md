@@ -18,7 +18,7 @@ setwd("~/R_Projects/ArcticAntarctica/GreenAlgae")
 ```
 
 ## 1. Data handling 
-Start by reading the raw and relativized count tables and then apply several filtering steps to remove unwanted samples and columns, such as outliers and specific sites. The script includes the manipulation of metadata, integration of taxonomic information, and creation of subsets for different regions (Arctic, Antarctic Peninsula, and Antarctic Continent) based on the presence of taxa. Each subset is further enriched with taxonomic classification at the phylum, class, and order levels, enabling more detailed downstream analyses.
+I start by reading the raw and relativized count tables and then apply several filtering steps to remove unwanted samples and columns, such as outliers and specific sites. The script includes the manipulation of metadata, integration of taxonomic information, and creation of subsets for different regions (Arctic, Antarctic Peninsula, and Antarctic Continent) based on the presence of taxa. Each subset is further enriched with taxonomic classification at the phylum, class, and order levels, enabling more detailed downstream analyses.
 ``` r
 counttable <- read.delim("305WP2PolarGA.unique.agc.txt", header=T,row.names = 1)  # Raw count table
 

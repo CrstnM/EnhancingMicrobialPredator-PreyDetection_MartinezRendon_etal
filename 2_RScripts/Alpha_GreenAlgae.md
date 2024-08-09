@@ -18,7 +18,7 @@ library(ggpubr)
 
 rm(list = ls())
 
-setwd("~/R_Projects/ArcticAntarctica/GreenAlgae") # Location of this R script. 
+setwd("~/R_Projects/ArcticAntarctica/GreenAlgae")
 
 set.seed(850511)
 ``` 
@@ -90,7 +90,7 @@ alphadiv <- alphadiv[c("SampleID", "Set", "uniqsample", "otu_richness", "shannon
 
 
 ## 2. Statistics
-# I didn't test for normality. Sampling size is large (n = 116), data is not strongly skewed. Run Anovas.
+I didn't test for normality. Sampling size is large (n = 116), data is not strongly skewed. Run Anovas.
 
 ### ANOVA 
 ``` r
@@ -118,25 +118,25 @@ for (index in diversity_indices) {
 ### ANOVA results: 
 
 #### ANOVA Table (type II tests)
-**otu_richness** 
- Effect DFn DFd      F        p p<.05   ges
-	1   Set   2 113 1.853 0.162       0.032   no es significativo.
+>**otu_richness**  
+ Effect DFn DFd      F        p p<.05   ges  
+	1   Set   2 113 1.853 0.162       0.032   no es significativo.  
 
-**shannon**
-Effect DFn DFd     F        p p<.05   ges
+>**shannon**  
+Effect DFn DFd     F        p p<.05   ges  
 	1    Set   2 113 4.302 0.016     * 0.071  
 
-**simpson**
-Effect DFn DFd     F     p p<.05   ges
-	1    Set   2 113 0.504 0.605       0.009  no es singificativo.
+>**simpson**  
+Effect DFn DFd     F     p p<.05   ges  
+	1    Set   2 113 0.504 0.605       0.009  no es singificativo.  
 
-**inverse_simpson**
-Effect DFn DFd     F     p p<.05   ges
-	1    Set   2 113 3.888 0.023     * 0.064
+>**inverse_simpson**  
+Effect DFn DFd     F     p p<.05   ges  
+	1    Set   2 113 3.888 0.023     * 0.064  
 
-**pielou**
-Effect DFn DFd     F     p p<.05   ges
-	1    Set   2 113 2.151 0.121       0.037 no es singificativo.
+>**pielou**  
+Effect DFn DFd     F     p p<.05   ges  
+	1    Set   2 113 2.151 0.121       0.037 no es singificativo.  
 
 ### Post-hoc comparisons:
 ``` r
@@ -213,7 +213,7 @@ inv_simpson_ggboxplot <- ggboxplot(
         plot.background = element_rect(fill = "transparent", colour = NA)); inv_simpson_ggboxplot
 
 # ggsave(file = "Plots/Alpha_diversity_Diat_H2InvSimpso1.pdf", dpi=300, width = 2.5, height = 4.5)
-``` r
+``` 
 
 
 ## 4. Hill Numbers
@@ -269,17 +269,17 @@ for (index in diversity_indices_hill) {
 
 #### ANOVA Table (type II tests)
 
-**Hill0**
-Effect DFn DFd      F        p p<.05   ges
-	1    Set   2 113 1.853 0.162       0.032
+>**Hill0**  
+Effect DFn DFd      F        p p<.05   ges  
+	1    Set   2 113 1.853 0.162       0.032  
 
-**Hill1**
-Effect DFn DFd     F        p p<.05   ges
-	1    Set   2 113 6.278 0.003     * 0.1
+>**Hill1**  
+Effect DFn DFd     F        p p<.05   ges  
+	1    Set   2 113 6.278 0.003     * 0.1  
 
-**Hill2** 
-Effect DFn DFd     F     p p<.05   ges
-	1    Set   2 113 3.888 0.023     * 0.064
+>**Hill2**   
+Effect DFn DFd     F     p p<.05   ges  
+	1    Set   2 113 3.888 0.023     * 0.064  
 
 ### Post-hoc comparisons:
 ``` r

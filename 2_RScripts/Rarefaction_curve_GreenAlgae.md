@@ -23,7 +23,7 @@ setwd("~/R_Projects/ArcticAntarctica/GreenAlgae")
 ```
 
 ## 1. Data handling
-It starts by reading in a dataset and perform data cleaning, including removing specific columns, filtering out outlier samples, renaming row identifiers, and reorganizing the columns. After reverting the *tibble* back, it calculates rarefaction curves to assess species richness across different sample sizes. Finally, merge the resulting rarefaction data with metadata to facilitate color-coding in subsequent visualizations.
+I start by reading in a dataset and perform data cleaning, including removing specific columns, filtering out outlier samples, renaming row identifiers, and reorganizing the columns. After reverting the *tibble* back, I calculate rarefaction curves to assess species richness across different sample sizes. Finally, merge the resulting rarefaction data with metadata to facilitate color-coding in subsequent visualizations.
 
 ``` r
 counts <- read.delim("305WP2PolarGA.unique.agc.txt", header=T,row.names = 1)

@@ -21,7 +21,7 @@ library(circlize)
 
 rm(list=ls())
 
-setwd("~/R_Projects/ArcticAntarctica/GreenAlgae") # Location of this R script. 
+setwd("~/R_Projects/ArcticAntarctica/GreenAlgae") 
 ```
 
 

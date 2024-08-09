@@ -14,7 +14,7 @@ We produced independent metabarcoding datasets of a predator group (Cercozoa) an
 
 Diversity measures
 ----------
-Community composition was visualized through [chord plots](2_RScripts/Chord_diagram_GreenAlgae.md) and [Venn diagrams](2_RScripts/Venn_diagram_GreenAlgae.md). [Alpha](2_RScripts/) and [beta diversity](2_RScripts/) metrics were as well visualized and statistically tested. 
+Community composition was visualized through [chord plots](2_RScripts/Chord_diagram_GreenAlgae.md) and [Venn diagrams](2_RScripts/Venn_diagram_GreenAlgae.md). [Alpha](2_RScripts/Alpha_GreenAlgae.md) and [beta diversity](2_RScripts/NMDS_GreenAlgae.md) metrics were as well visualized and statistically tested. 
 
 Cross-kingdom co-occurrence network inference
 ----------

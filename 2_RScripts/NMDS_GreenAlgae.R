@@ -1,11 +1,14 @@
-### Non-metric dimensional scaling: ordination that helps to show clusters in the data. 
+# Non-metric dimensional scaling: ordination to show clusters in the data. 
+
+# Cristina Martínez Rendón
+# 14-09-2023
+
 
 # In NMDS, the goal is to represent high-dimensional data in a reduced-dimensional space while preserving the original pairwise distances (or dissimilarities) as much as possible. 
 #  - visualizing and exploring the dissimilarity or distance between objects based on their attributes. 
 #  - NMDS handle dissimilarity or distance measures that are not necessarily based on strict numeric scales.
 #  - useful tool for exploratory analysis, visualization, and understanding the underlying structure or relationships within a dataset based on dissimilarities or distances between objects.
 
-rm(list = ls())
 
 library(vegan)
 library(tidyverse)
@@ -16,10 +19,15 @@ library(plyr)
 library(ggrepel)
 library(ape)
 
-setwd("~/R_Projects/ArcticAntarctica/GreenAlgae") # Location of this R script. 
+rm(list = ls())
+
+setwd("~/R_Projects/ArcticAntarctica/GreenAlgae") 
 
 set.seed(850511)
 
+# 1. Data handling 
+
+# I processed and filtered OTU count data by removing unwanted columns and rows, excluding OTUs with fewer than three non-zero values, and transforming the data for further analysis. I then matched and filtered the associated sample metadata, integrated relevant environmental data, and checked for any remaining singletons or zero-sum OTUs, which were subsequently removed. Finally, I ensured that both the raw and relative abundance matrices were cleaned of zero-sum OTUs for downstream analyses.
 
 counttable <- read.delim("305WP2PolarGA.unique.agc.txt", header=T, row.names = 1)
 
@@ -72,31 +80,31 @@ info <- as_tibble(info) %>%
   pcoa1_Diat <- read.delim("../Diatoms/pcoa1_Diat.csv", header=T, row.names = 1, sep = ",") 
   data_env$pcoa1_Diat <- pcoa1_Diat$MDS1
 
-#####
-  # I also check if there are still singletons or 0s: 
+# I also check if there are still singletons or 0s: 
     colsums <- sort(colSums(Species_mat), decreasing = TRUE)
     colsums
-  # And I'll get rid already of the OTUs that sum up 0
+# And I'll get rid already of the OTUs that sum up 0
     Species_mat <- Species_mat[, !(colSums(Species_mat) == 0)]
     Species_mat_rel <- Species_mat_rel[, !(colSums(Species_mat_rel) == 0)]
 
-  
+    
+# 2. Calculate Beta Diversity and green algal PCoA. 
+    
 # Bray-Curtis-distances and stress values. Compositional dissimilarity between two different sites, based on counts at each site.
   # I decided not to rarefy, only to normalize, so I go directly to: 
   Dist_Poles <-  vegdist(Species_mat_rel, method="bray", diag = T, na.rm = T)
   set.seed(850511)
   OTU.NMDS.bray_Poles <-  metaMDS(Dist_Poles, k=3, trymax=200, wascores=TRUE, trace=TRUE, zerodist="add")
 
-    
-#####
-  # Calculate PCoAs for each sample for Cercozoa. These results will later be used on the NMDS plots of the other two taxa.
+
+  # Calculate PCoAs for each sample for green algae. These results will later be used on the NMDS plots of the other two taxa.
   pcoa_GA <- capscale(Species_mat_rel ~ 1, dist="bray")
   
   # Plot scree plot
   barplot(pcoa_GA$CA$eig, names.arg=c(1:length(pcoa_GA$CA$eig)), 
           main="Scree plot", xlab="Eigenvalue index", ylab="Eigenvalue")
   
-  # Extract eigenvectors and the proportion of variance explained
+  # Extract eigenvectors and the proportion of variance explained. The first axis (PCoA1) of each taxon’s community was used to predict those of the others. 
   Eigenvectors <- data.frame(scores(pcoa_GA, choices=1:2, display="sites"))
   VarExplained=data.frame(summary(eigenvals(pcoa_GA))[,1:2])
   # MDS1      MDS2
@@ -105,11 +113,10 @@ info <- as_tibble(info) %>%
   # Cumulative Proportion 0.2070286 0.3495343
   
   # Save the results in a csv to use in the other datasets. 
-  write.csv(Eigenvectors, file = "pcoa1_GA.csv", quote=FALSE, row.names=T)
+  #write.csv(Eigenvectors, file = "pcoa1_GA.csv", quote=FALSE, row.names=T)
   
   
-##### 
-  # Fit environmental vectors and factors!
+# 3. Fit environmental vectors and factors!
   set.seed(850511)
   env <- envfit(OTU.NMDS.bray_Poles, data_env, perm=999, choices=c(1:3))
       # ***VECTORS
@@ -202,53 +209,7 @@ info <- as_tibble(info) %>%
     # 2  Arctic vs An_Pen  1 0.4713997  5.239918 0.05280051   0.001      0.001  **
     # 3 An_Cont vs An_Pen  1 0.8814425 10.223368 0.12904486   0.001      0.001  **
     
-  # Variance partitioning
-  OTUGA_hel <- decostand(Species_mat_rel, "hellinger")
-  
-  Cervarp.all <- varpart(OTUGA_hel, ~ set, ~ pcoa1_Cerco, ~ pH, ~ mean_C_per100, data = data_env)
-  
-  plot(Cervarp.all, digits = 1, Xnames = c('Set', 'Cercozoa', 'pH', 'C'), bg = c('navy', 'purple', 'tomato',  "yellow"))
-  
-  # Perform RDA for each variable to get the testable p-values
-  # Note: OTUGA_hel is a dissimilarity matrix, so we use `capscale` for constrained analysis of proximities
-  
-  # RDA for 'set'
-  rda_set <- capscale(OTUGA_hel ~ set, data = data_env)
-  anova_set <- anova.cca(rda_set, permutations = 999)
-  
-  # RDA for 'pcoa1_Cerco'
-  rda_pcoa1_Cerco <- capscale(OTUGA_hel ~ pcoa1_Cerco, data = data_env)
-  anova_pcoa1_Cerco <- anova.cca(rda_pcoa1_Cerco, permutations = 999)
-  
-  # RDA for 'pH'
-  rda_pH <- capscale(OTUGA_hel ~ pH, data = data_env)
-  anova_pH <- anova.cca(rda_pH, permutations = 999)
-  
-  # RDA for 'mean_C_per100'
-  rda_mean_C_per100 <- capscale(OTUGA_hel ~ mean_C_per100, data = data_env)
-  anova_mean_C_per100 <- anova.cca(rda_mean_C_per100, permutations = 999)
-  
-  # Extract p-values
-  p_values <- c(
-    anova_set$`Pr(>F)`[1],
-    anova_pcoa1_Cerco$`Pr(>F)`[1],
-    anova_pH$`Pr(>F)`[1],
-    anova_mean_C_per100$`Pr(>F)`[1]
-  )
-  
-  # Extract F-values
-  f_values <- c(
-    anova_set$F[1],
-    anova_pcoa1_Cerco$F[1],
-    anova_pH$F[1],
-    anova_mean_C_per100$F[1]
-  )
-  
-  # >   p_values
-  # [1] 0.001 0.001 0.001 0.001
-  # >   f_values
-  # [1]  9.571378 15.699845 10.334837  4.492961
-  
+
   
 # get data scores
 data.scores = as.data.frame(scores(OTU.NMDS.bray_Poles), display= "sites")
@@ -259,17 +220,17 @@ data.scores$names_site = SampleMetadata$names_site
 data.scores <- as_tibble(data.scores)
 data.scores$Set <- factor(data.scores$Set)
 
+# 4. Plot
+
+color <- c("#ffb535", "#225895", "#89aec2")  #FFE4B5
+color_light <- c("#D6D59C", "#4A80BD", "#87B8D9")
+
+# 4.1 Create a polygon
 
 # Convex hulls.
 find_hull <- function(data.scores) data.scores[chull(data.scores$NMDS1, data.scores$NMDS2), ]
 hulls <- ddply(data.scores, "Set", find_hull)
 
-
-color <- c("#ffb535", "#225895", "#89aec2")  #FFE4B5
-color_light <- c("#D6D59C", "#4A80BD", "#87B8D9")
-
-
-# Create a polygon
 Plot <- ggplot(data.scores) +
   geom_point(aes(x = NMDS1, y = NMDS2, color = Set),
              size = 2, alpha = 0.6) +
@@ -309,11 +270,12 @@ Plot_polygons <- Plot + geom_polygon(data=hulls, aes(x=NMDS1, y=NMDS2, group=Set
                       scale_fill_manual(values = c("#D6D59C", "#4A80BD", "#87B8D9"),
                       limits = c("Arctic","An_Cont","An_Pen")); Plot_polygons
   
-  ggsave(file = "Plots/NMDS_Polygon_GreenA_rarefied_env.png", dpi=300, width = 8, height = 5)  
+  ggsave(file = "Plots/NMDS_Polygon_GreenAlgae_240809.png", dpi=300, width = 8, height = 5)  
   
   
   
-# Create an ellipse plot
+## 4.2 Create an ellipse plot
+  
 Ellipse <- ggplot(data.scores) +
   geom_point(aes(x = NMDS1, y = NMDS2, color = Set),
              size = 2, alpha = 0.6) +
@@ -352,9 +314,5 @@ Ellipse <- ggplot(data.scores) +
 
 saveRDS(Ellipse, file = "GreenAlgae_NMDS_240515.RDS")
 
-ggsave(file = "Plots/NMDS_Ellipse_GreenA_env_240515.png", dpi=300, width = 8, height = 5) 
+ggsave(file = "Plots/NMDS_Ellipse_GreenAlage_240809.png", dpi=300, width = 8, height = 5) 
 
-
-    
-
-    
