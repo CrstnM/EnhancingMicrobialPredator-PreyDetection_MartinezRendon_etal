@@ -146,7 +146,7 @@ To run the script:
 3. ❄️ Run the script: 
  > include("/../FlashWeave_NetworkInference_Arctic.jl")
  
-The script is different for each region. The input data includes the count data filtered and transformed during the first three steps of this script. The following lines are written in a text file but saved as .jl in the used directory. Check the example available in [this directory](3_Bash)  
+The script is different for each region. The input data includes the count data filtered and transformed during the first three steps of this script. The following lines are written in a text file but saved as .jl in the used directory. Check the example available [here](3_Bash/FlashWeave_NetworkInference_Arctic.jl).  
 
   
       ># Load FlashWeave
