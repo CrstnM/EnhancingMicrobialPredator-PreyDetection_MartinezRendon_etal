@@ -15,7 +15,7 @@ if (!require("ggplot2")) install.packages("ggplot2")
 if (!require("ggrepel")) install.packages("ggrepel")
 if (!require("vegan")) install.packages("vegan")
 
-Load packages
+# Load packages
 library(compositions)
 library(tidyverse)
 library(ggplot2)
@@ -132,7 +132,7 @@ metadata <- metadata[,c("Arctic")] # ❄️ "Arctic", "An_Cont", "An_Pen",
  # ❄️ Export the taxonomy table
   write.csv(taxonomy, file = "Per_Set_Thr10per100/FlashWeaveNetwork_Poles_Taxonomy_Arctic.csv",  # Arctic An_Cont An_Pen
             quote=FALSE, row.names=T) 
-``` r  
+``` 
  
 ## 4. Run FlashWeave
  
@@ -199,8 +199,8 @@ edges <- edges[which(edges$Node1 != 'filtered_taxa' & edges$Node2 != 'filtered_t
  # ❄️ Export data as .txt file
  write.table(edges, file = 'Per_Set_Thr10per100/Results/FlashWeaveNetwork_Arctic.txt', # Sp
              sep="\t", quote=FALSE, row.names=FALSE)
- ``` r
- 
+ ``` 
+
 
 ### 6. Create taxonomy table                    
 ``` r 
