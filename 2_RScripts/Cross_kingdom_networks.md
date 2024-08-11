@@ -117,7 +117,6 @@ metadata$ID <- row.names(metadata)
 metadata <-  dcast(metadata, ID ~ Set, length)
 metadata <- metadata[,c("Arctic")] # ❄️ "Arctic", "An_Cont", "An_Pen", 
 
- 
 
  # ❄️ Transform and export the count data 
   write.table(counts,
@@ -150,19 +149,19 @@ The script is different for each region. The input data includes the count data 
 
   
       ># Load FlashWeave
-      > using FlashWeave
+      using FlashWeave
      
       ># Define input path for the count data
-      > count_data_path = string("/home/alle/WORKING_DIR/Cristina/Networks/FlashWeaveNetwork_Poles_CountData.csv")
+      count_data_path = string("/home/alle/WORKING_DIR/Cristina/Networks/FlashWeaveNetwork_Poles_CountData.csv")
      
       ># Define input path for the metadata
-      > meta_data_path = string("/home/alle/WORKING_DIR/Cristina/Networks/FlashWeaveNetwork_Poles_Metadata.csv")
+      meta_data_path = string("/home/alle/WORKING_DIR/Cristina/Networks/FlashWeaveNetwork_Poles_Metadata.csv")
      
       ># Calculate network
-      > network = learn_network(count_data_path, meta_data_path, sensitive=true, heterogeneous=false)
+      network = learn_network(count_data_path, meta_data_path, sensitive=true, heterogeneous=false)
      
       ># Save network
-      > save_network(string("/home/alle/WORKING_DIR/Cristina/Networks/NetworkFlashWeave.edgelist"), network)
+      save_network(string("/home/alle/WORKING_DIR/Cristina/Networks/NetworkFlashWeave.edgelist"), network)
      
      
  

@@ -146,7 +146,7 @@ pwc_otu <- alphadiv %>%
   tukey_hsd(otu_richness ~ Set); pwc_otu
 pwc_otu <- pwc_otu %>% add_xy_position(x = "Set")
 ```
-> pwc_otu
+> pwc_otu  
 term  group1 group2  null.value estimate conf.low conf.high  p.adj p.adj.signif
 	* <chr> <chr>  <chr>        <dbl>    <dbl>    <dbl>     <dbl>  <dbl> <chr>       
 	1 Set   Arctic An_Pen           0     2.95    -4.20     10.1  0.591 ns          
@@ -158,7 +158,7 @@ pwc_inv_simpson <- alphadiv %>%
   tukey_hsd(inverse_simpson ~ Set); pwc_inv_simpson
 pwc_inv_simpson <- pwc_inv_simpson %>% add_xy_position(x = "Set")
 ```
-> pwc_inv_simpson 
+> pwc_inv_simpson  
 term  group1 group2  null.value estimate conf.low conf.high p.adj p.adj.signif
 	* <chr> <chr>  <chr>        <dbl>    <dbl>    <dbl>     <dbl> <dbl> <chr>       
 	1 Set   Arctic An_Pen           0    0.654   -0.973     2.28  0.607 ns          
@@ -220,11 +220,14 @@ inv_simpson_ggboxplot <- ggboxplot(
 
 We calculate Hill numbers with alpha = 0, 1 & 2 from count data for each sample using the function renyi (package vegan). If needed, we transpose the count data to have sample IDs as the row names and taxa IDs as the column names.
 
-### 4.1. OTU Richness: This corresponds to 𝑞= 0, where no weighting by relative abundance occurs, so every OTU is counted equally, representing the total species (or OTU) richness.
+### 4.1. OTU Richness: 
+This corresponds to 𝑞= 0, where no weighting by relative abundance occurs, so every OTU is counted equally, representing the total species (or OTU) richness.
 
-### 4.2. Exponential Shannon: This corresponds to 𝑞= 1, which is the exponential of the Shannon entropy. This metric takes into account both the richness and evenness of species in the community, giving more weight to species that are more evenly distributed.
+### 4.2. 
+Exponential Shannon: This corresponds to 𝑞= 1, which is the exponential of the Shannon entropy. This metric takes into account both the richness and evenness of species in the community, giving more weight to species that are more evenly distributed.
 
-### 4.3. Inverse Simpson: This corresponds to 𝑞= 2, which is the inverse of the Simpson index. This metric gives more weight to the more abundant species, reflecting the probability that two randomly chosen individuals from the dataset belong to different species.
+### 4.3. 
+Inverse Simpson: This corresponds to 𝑞= 2, which is the inverse of the Simpson index. This metric gives more weight to the more abundant species, reflecting the probability that two randomly chosen individuals from the dataset belong to different species.
 
 ``` r
 # Calculate hill numbers for alpha = 0, 1, 2
@@ -283,20 +286,20 @@ Effect DFn DFd     F     p p<.05   ges
 
 ### Post-hoc comparisons:
 ``` r
-tukey_hsd(index ~ Set)
+tukey_hsd(index ~ Set)  
 
-# Tukey multiple comparisons of means
-# 95% family-wise confidence level
+# Tukey multiple comparisons of means  
+# 95% family-wise confidence level  
 
-pwc_hill1 <- renyi %>% 
+pwc_hill1 <- renyi %>%  
   tukey_hsd(hill1 ~ Set); pwc_hill1
-pwc_hill1 <- pwc_hill1 %>% add_xy_position(x = "Set")
+pwc_hill1 <- pwc_hill1 %>% add_xy_position(x = "Set")  
 ``` 
-> pwc_hill1
-term  group1 group2  null.value estimate conf.low conf.high    p.adj p.adj.signif
+> pwc_hill1  
+term  group1 group2  null.value estimate conf.low conf.high    p.adj p.adj.signif  
 	1 Set   Arctic An_Pen           0    0.875    -1.34     3.09  0.617   ns          
 	2 Set   Arctic An_Cont          0   -3.36     -6.27    -0.454 0.0191  *           
-	3 Set   An_Pen An_Cont          0   -4.24     -7.09    -1.38  0.00177 ** 
+	3 Set   An_Pen An_Cont          0   -4.24     -7.09    -1.38  0.00177 **  
 
 
 ## 5. H1 Plot
