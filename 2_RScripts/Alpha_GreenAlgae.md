@@ -223,11 +223,11 @@ We calculate Hill numbers with alpha = 0, 1 & 2 from count data for each sample 
 ### 4.1. OTU Richness: 
 This corresponds to 𝑞= 0, where no weighting by relative abundance occurs, so every OTU is counted equally, representing the total species (or OTU) richness.
 
-### 4.2. 
-Exponential Shannon: This corresponds to 𝑞= 1, which is the exponential of the Shannon entropy. This metric takes into account both the richness and evenness of species in the community, giving more weight to species that are more evenly distributed.
+### 4.2. Exponential Shannon: 
+This corresponds to 𝑞= 1, which is the exponential of the Shannon entropy. This metric takes into account both the richness and evenness of species in the community, giving more weight to species that are more evenly distributed.
 
-### 4.3. 
-Inverse Simpson: This corresponds to 𝑞= 2, which is the inverse of the Simpson index. This metric gives more weight to the more abundant species, reflecting the probability that two randomly chosen individuals from the dataset belong to different species.
+### 4.3. Inverse Simpson: 
+This corresponds to 𝑞= 2, which is the inverse of the Simpson index. This metric gives more weight to the more abundant species, reflecting the probability that two randomly chosen individuals from the dataset belong to different species.
 
 ``` r
 # Calculate hill numbers for alpha = 0, 1, 2
