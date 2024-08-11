@@ -1,4 +1,4 @@
-# Non-metric dimensional scaling: ordination to show clusters in the data. 
+# Non-metric dimensional scaling (NMDS) 
 
 Cristina Martínez Rendón  
 14-09-2023
@@ -8,11 +8,11 @@ In NMDS, the goal is to represent high-dimensional data in a reduced-dimensional
 - Visualizing and exploring the dissimilarity or distance between objects based on their attributes  
 - NMDS handle dissimilarity or distance measures that are not necessarily based on strict numeric scales  
 - useful tool for exploratory analysis, visualization, and understanding the underlying structure or relationships within a dataset based on dissimilarities or distances between objects.  
-``` r
+
 **R version:** 4.3.0 (21-04-2023)
 
 **Packages**
-
+``` r
 library(vegan)
 library(tidyverse)
 library(ggpubr)
@@ -29,7 +29,7 @@ setwd("~/R_Projects/ArcticAntarctica/GreenAlgae")
 set.seed(850511)
 ``` 
 
-# 1. Data handling  
+## 1. Data handling  
 I processed and filtered OTU count data by removing unwanted columns and rows, excluding OTUs with fewer than three non-zero values, and transforming the data for further analysis. I then matched and filtered the associated sample metadata, integrated relevant environmental data, and checked for any remaining singletons or zero-sum OTUs, which were subsequently removed. Finally, I ensured that both the raw and relative abundance matrices were cleaned of zero-sum OTUs for downstream analyses.
 ``` r
 counttable <- read.delim("305WP2PolarGA.unique.agc.txt", header=T, row.names = 1)
@@ -89,7 +89,7 @@ info <- as_tibble(info) %>%
     Species_mat_rel <- Species_mat_rel[, !(colSums(Species_mat_rel) == 0)]
 ```
     
-# 2. Calculate Beta Diversity and green algal PCoA  
+## 2. Calculate Beta Diversity and green algal PCoA  
 ``` r  
 # Bray-Curtis-distances and stress values. Compositional dissimilarity between two different sites, based on counts at each site.
   # I decided not to rarefy, only to normalize, so I go directly to: 
@@ -117,37 +117,35 @@ info <- as_tibble(info) %>%
   write.csv(Eigenvectors, file = "pcoa1_GA.csv", quote=FALSE, row.names=T)
 ``` 
 
-# 3. Fit environmental vectors and factors  
+## 3. Fit environmental vectors and factors  
 ``` r
   set.seed(850511)
   env <- envfit(OTU.NMDS.bray_Poles, data_env, perm=999, choices=c(1:3))
 ``` 
 
-> **VECTORS**
+> **VECTORS**  
                   NMDS1    NMDS2    NMDS3     r2 Pr(>r)    
-pH             0.93321  0.25187  0.25627 0.3991  0.001 ***
-mean_N_per100  0.62684 -0.77630 -0.06658 0.1077  0.007 ** 
-mean_C_per100  0.12386 -0.66036 -0.74066 0.1490  0.001 ***
-mean_CN_ratio -0.66139  0.27449 -0.69801 0.2500  0.001 ***
+pH             0.93321  0.25187  0.25627 0.3991  0.001 ***  
+mean_N_per100  0.62684 -0.77630 -0.06658 0.1077  0.007 **  
+mean_C_per100  0.12386 -0.66036 -0.74066 0.1490  0.001 ***  
+mean_CN_ratio -0.66139  0.27449 -0.69801 0.2500  0.001 ***  
 P_gperkg       0.20478 -0.40914 -0.88920 0.0502  0.125    
-pcoa1_Cerco    0.81727  0.28775  0.49926 0.5830  0.001 ***
-pcoa1_Diat     0.19592  0.62664 -0.75428 0.1185  0.002 ** 
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-Permutation: free
-Number of permutations: 999
+pcoa1_Cerco    0.81727  0.28775  0.49926 0.5830  0.001 ***  
+pcoa1_Diat     0.19592  0.62664 -0.75428 0.1185  0.002 **   
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1  
+Permutation: free  
+Number of permutations: 999  
 
-> **FACTORS**
-Centroids:
-             NMDS1   NMDS2   NMDS3
-setAn_Cont -0.1639 -0.5626  0.0603
-setAn_Pen   0.2135  0.0560  0.0564
-setArctic  -0.1691  0.1865 -0.0907
-
-Goodness of fit:
+> **FACTORS**  
+Centroids:  
+             NMDS1   NMDS2   NMDS3  
+setAn_Cont -0.1639 -0.5626  0.0603  
+setAn_Pen   0.2135  0.0560  0.0564  
+setArctic  -0.1691  0.1865 -0.0907  
+Goodness of fit:  
         r2 Pr(>r)    
-set 0.214  0.001 ***
-  
+set 0.214  0.001 ***  
+
 
 ### Extract arrows for numeric metadata, I compare two ways. 
 ``` r
@@ -224,12 +222,12 @@ data.scores$names_site = SampleMetadata$names_site
 data.scores <- as_tibble(data.scores)
 data.scores$Set <- factor(data.scores$Set)
 ``` 
-# 4. Plot
+## 4. Plot
 ``` r
 color <- c("#ffb535", "#225895", "#89aec2")  #FFE4B5
 color_light <- c("#D6D59C", "#4A80BD", "#87B8D9")
 ``` 
-# 4.1 Create a polygon
+### 4.1 Create a polygon
 ``` r
 # Convex hulls.
 find_hull <- function(data.scores) data.scores[chull(data.scores$NMDS1, data.scores$NMDS2), ]
@@ -278,7 +276,7 @@ Plot_polygons <- Plot + geom_polygon(data=hulls, aes(x=NMDS1, y=NMDS2, group=Set
 ```   
   
   
-## 4.2 Create an ellipse plot
+### 4.2 Create an ellipse plot
 ``` r
 Ellipse <- ggplot(data.scores) +
   geom_point(aes(x = NMDS1, y = NMDS2, color = Set),
@@ -321,4 +319,4 @@ saveRDS(Ellipse, file = "GreenAlgae_NMDS_240515.RDS")
 ggsave(file = "Plots/NMDS_Ellipse_GreenAlage_240809.png", dpi=300, width = 8, height = 5)
 ``` 
 
-
+![NMDS ellipse plot GreenAlgae](../4_Figures/NMDS_Ellipse_GreenAlgae.png) 
