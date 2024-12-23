@@ -122,7 +122,7 @@ for (model_name in names(ranmodels_list)) {
   )
 }
 ```
-## 2.  Trait-based filtering to exclude bacterivores, 
+## 2.  Trait-based filtering to exclude bacterivores
 For a second version of the species networks, which includes only algivores and omnivores.
 ``` r 
 Trait_subset <- read.csv(file = file.path(dataDir, "TrData_subset.csv"), header = TRUE, row.names = 1, sep=";") %>% 
@@ -302,6 +302,9 @@ print(results)
 
 # Optionally, save the results to a CSV file
 write.csv(results, file = file.path(toPlot_dir, "toPlot_summary_bacterivores.csv"), row.names = FALSE)
-```  
+``` 
+
+
+Final version of the networks after refining them: 
 ![Final species association networks after refining in Inkscape](../4_Figures/HMSC_Network.png)
 
