@@ -303,8 +303,9 @@ print(results)
 # Optionally, save the results to a CSV file
 write.csv(results, file = file.path(toPlot_dir, "toPlot_summary_bacterivores.csv"), row.names = FALSE)
 ``` 
-
-
+ 
+ 
+ 
 Final version of the networks after refining them: 
 ![Final species association networks after refining in Inkscape](../4_Figures/HMSC_Network.png)
 

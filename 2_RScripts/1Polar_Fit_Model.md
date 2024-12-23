@@ -4,7 +4,8 @@ Cristina Martínez Rendón
 04-12-2024  
 
 
-Joint Species Distribution Modelling (JSDM) has emerged as a powerful and increasingly popular statistical approach for analyzing complex data in community ecology. Among the tools available, Hierarchical Modeling of Species Communities (HMSC) stands out as a versatile framework that applies the principles of generalized linear models (GLMs) within a Bayesian inference approach. HMSC allows the integration of community ecology data with data on environmental covariates, species traits, phylogenetic relationships, and the spatio-temporal context of the study, providing predictive insights into community assembly processes from non-manipulative observational data of species communities (Tikhonov et al. 2020)
+Joint Species Distribution Modelling (JSDM) has emerged as a powerful and increasingly popular statistical approach for analyzing complex data in community ecology. Among the tools available, Hierarchical Modeling of Species Communities (HMSC) stands out as a versatile framework that applies the principles of generalized linear models (GLMs) within a Bayesian inference approach. HMSC allows the integration of community ecology data with data on environmental covariates, species traits, phylogenetic relationships, and the spatio-temporal context of the study, providing predictive insights into community assembly processes from non-manipulative observational data of species communities (Tikhonov et al. 2020) 
+ 
 **R version:** 4.3.0 (21-04-2023)  
 
 **Packages**  
