@@ -16,6 +16,10 @@ Diversity measures
 ----------
 Community composition was visualized through [chord plots](2_RScripts/Chord_diagram_GreenAlgae.md) and [Venn diagrams](2_RScripts/Venn_diagram_GreenAlgae.md). [Alpha](2_RScripts/Alpha_GreenAlgae.md) and [beta diversity](2_RScripts/NMDS_GreenAlgae.md) metrics were as well visualized and statistically tested. 
 
-Cross-kingdom co-occurrence network inference
+Cross-kingdom co-occurrence network inference in FlashWeave
 ----------
 Biotic putative interactions were detected and visualized via the calculation of [cross-kingdom co-occurrence networks](2_RScripts/Cross_kingdom_networks.md) among the three investigated taxa. To reduce spurious putative interactions, and based on the NMDS analyses visualized from beta diversity dissimilarities, we conducted separate network analyses for each sampling region. Moreover, prevalence filters were applied to exclude rare taxa. Finally, significant putative interactions between taxa (nodes) were aggregated at the order level. The input data (raw data without taxonomy) and metadata for the network analyses are available [here](1_Data/Network_Analyses).
+
+Hierarchical Modeling of Species Communities (HMSC) Network Inference
+----------
+We employed Hierarchical Modeling of Species Communities (HMSC) to complement our FlashWeave-based network analyses and provide a robust Bayesian framework for investigating biotic associations among taxa. HMSC allows the disentanglement of environmental correlations (shared responses to environmental variables) from residual associations (interactions not explained by the environment), providing deeper insights into potential biotic interactions. To achieve this, we [fitted four models] (2_RScripts/1Polar_Fit_Model), performed [model diagnostics](2_RScripts/2Polar_ModelDiagnostics), and subsequently constructed the [species association networks](2_RScripts/3Polar_SpeciesAssociationNetworks).
