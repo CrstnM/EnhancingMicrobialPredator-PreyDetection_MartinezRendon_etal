@@ -148,7 +148,7 @@ I included in the analyses only those OTUs with a prevalence of at least 10% amo
   Merged_t <- Merged_t[, "OTU_Sp", drop = FALSE]
   Merged_t$Original_Order <- seq_len(nrow(Merged_t))
 ``` 
-### Match and merge the nutrition and phylogeny data into Merged_t
+Match and merge the nutrition and phylogeny data into Merged_t
 ``` r
   Merged_t <- merge(Merged_t, 
                     all_traits[, c("OTU_Sp", "nutrition", "Kingdom", "Supergroup", 
@@ -257,9 +257,9 @@ I saved as well trait data to filter out bacterivores in a second version of the
   TrFormula = ~ nutrition + Phylum
   
 ```  
-### MODEL = 1: NULL MODELS (XFormula1); MODEL = 2: ENVIRONMENTAL AND SPATIAL PREDICTORS (XFormula); 
+#### MODEL = 1: NULL MODELS (XFormula1); MODEL = 2: ENVIRONMENTAL AND SPATIAL PREDICTORS (XFormula); 
   
-### CONSTRUCT THE MODELS 
+CONSTRUCT THE MODELS 
 ``` r 
   create_hmsc_model <- function(Y, XFormula, distribution) {
     Hmsc(
@@ -274,19 +274,19 @@ I saved as well trait data to filter out bacterivores in a second version of the
     )
   }
 ```   
-### Presence-absence models (Null and full). 
+Presence-absence models (Null and full). 
 ``` r
   modpa_null <- create_hmsc_model(Y = Ypa, XFormula = XFormula1, distribution = "probit")
   modpa_full <- create_hmsc_model(Y = Ypa, XFormula = XFormula2, distribution = "probit")
 ```   
   
-### Abundance models (Null and full)
+Abundance models (Null and full)
 ``` r
   modabu_null <- create_hmsc_model(Y = Yabu, XFormula = XFormula1, distribution = "normal")
   modabu_full <- create_hmsc_model(Y = Yabu, XFormula = XFormula2, distribution = "normal")
 ```   
   
-### COMBINING AND SAVING MODELS
+COMBINING AND SAVING MODELS
 ``` r  
   models <- list(
     modpa_null = modpa_null,
@@ -298,7 +298,7 @@ I saved as well trait data to filter out bacterivores in a second version of the
   save(models, file = file.path(ModelDir, "unfitted_models.RData"))
 ```   
   
-### TESTING THAT MODELS FIT WITHOUT ERRORS. This works!
+TESTING THAT MODELS FIT WITHOUT ERRORS. 
 ``` r  
   for(i in 1:length(models)){
     print(i)
@@ -306,7 +306,7 @@ I saved as well trait data to filter out bacterivores in a second version of the
   }
   
 ```   
-### Sampling the model (Test) 
+Sampling the model (Test) 
 ``` r  
   set.seed(850511)
   #dir.create("~/R_Projects/ArcticAntarctica/HMSC/Test")
@@ -340,10 +340,9 @@ I saved as well trait data to filter out bacterivores in a second version of the
           print(Sys.time()-t0)
           save(modabu_full, file=hmsc_modabu_full1)
         }else{load(hmsc_modabu_full1)}
-``` 
 
-### Run HMSC for presence-absence data with 140 iterations.
-``` r
+# Run HMSC for presence-absence data with 140 iterations.
+
   t0 <- Sys.time()
   hmsc_modpa_null1 <- "~/R_Projects/ArcticAntarctica/HMSC/Test/hmsc_modpa_null1.Rda"
   if(!file.exists(hmsc_modpa_null1)){
@@ -366,7 +365,7 @@ I saved as well trait data to filter out bacterivores in a second version of the
 
 
     gc() # (To reduce the chance of memory bloat after many iterations, especially with large Bayesian models).
-``` r 
+```  
     
 
 ## 7. Scale up the sampling process
@@ -420,8 +419,8 @@ Run HMSC test for the four models
     cat("All models processed and saved.\n")
 
     gc()  
-```` 
-
+``` 
+ 
 
 
 References:

@@ -1,4 +1,4 @@
-# Post-processing of model results - Model diagnostics: Testing of the model's convergence 
+# Post-processing of model results - Model diagnostics: Testing the models' convergence 
 
 Cristina Martínez Rendón  
 05-12-2024  

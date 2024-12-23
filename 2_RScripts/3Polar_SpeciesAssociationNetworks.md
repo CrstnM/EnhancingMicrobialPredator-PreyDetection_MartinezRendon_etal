@@ -167,7 +167,7 @@ Here, I saved the matrix as a CSV file and later manually filtered it in Excel t
 #}
 ```
     
-  # Generate association plot
+Generate association plot
 ``` r  
   omega_plot <- ggcorrplot::ggcorrplot(
     toPlot, 
@@ -303,6 +303,5 @@ print(results)
 # Optionally, save the results to a CSV file
 write.csv(results, file = file.path(toPlot_dir, "toPlot_summary_bacterivores.csv"), row.names = FALSE)
 ```  
-![Final species association networks after refining in Inkscape]
-(../4_Figures/HMSC_Network.png)
+![Final species association networks after refining in Inkscape](../4_Figures/HMSC_Network.png)
 
